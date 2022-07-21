@@ -47,6 +47,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=bolsa_xp
     ports:
       # Garanta que não haverá conflitos de porta com um banco que esteja
       # rodando localmente
