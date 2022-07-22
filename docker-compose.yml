@@ -6,7 +6,7 @@ services:
     # Imagem base do container
     image: node:16
     # Nome do container para facilitar execução
-    container_name: phonebook_node
+    container_name: node-container
     # Mesmo que `docker run -t`
     tty: true
     # Mesmo que `docker run -i`
@@ -41,13 +41,12 @@ services:
 
   # Serviço que irá rodar o banco de dados
   db:
-    container_name: phonebook_db
+    container_name: postgres-container
     image: postgres:14.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=bolsa_xp
     ports:
       # Garanta que não haverá conflitos de porta com um banco que esteja
       # rodando localmente
