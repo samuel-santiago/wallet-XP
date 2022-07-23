@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
-
+import * as services from '../services';
 
 export class clients {
 
-   async createClient(req: Request, res: Response):Promise<result>{
+   async createClient(req: Request, res: Response){
     const {name, email, password, balance } = req.body;
     const insertedClientObj = await prismaClient.client.create({
       data: {
@@ -51,22 +51,8 @@ export class clients {
   }
 
   async depositCash(req: Request, res: Response){
-    const {codCliente, Valor} = req.body;
-
-    const {name, balance} = await prismaClient.client.update({
-      where: { id: codCliente},
-      data: { balance: {increment: Valor}},
-    })
-    
-    const depositObjResponse = {
-      payload: {
-        message: 'Deposit made Successfully',
-        name,
-        newBalance: balance
-      }
-    }
-
-    return res.status(201).json(depositObjResponse)
+    const responseoBj = await services.Clients.depositCash(req.body)
+    return res.status(201).json(responseoBj)
   }
 
   async withdrawCash(req: Request, res: Response){
