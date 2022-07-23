@@ -35,19 +35,7 @@ export class clients {
   }
 
   async getClientByCode(req: Request, res: Response){
-    const {codCliente} = req.body;
-    const response = await prismaClient.client.findUnique({
-      where: { id: codCliente}
-    });
-
-    const clientObjResponse = {
-      payload:{
-        name: response?.name,
-        balance: response?.balance
-      }
-    }
-
-    return res.status(201).json(clientObjResponse);
+    return res.status(201).json({message: "OK"});
   }
 
   async depositCash(req: Request, res: Response){
@@ -56,19 +44,9 @@ export class clients {
   }
 
   async withdrawCash(req: Request, res: Response){
-    const {codCliente, Valor} = req.body;
-    const {name, balance}= await prismaClient.client.update({
-      where: { id: codCliente},
-      data: { balance: {decrement: Valor}},
-    })
+    const responseObj = await services.Clients.withDrawCash(req.body)
     
-    const withdrawObjResponse = {
-      payload: {  
-        message: 'Withdraw made Successfully',
-        name,
-        newBalance: balance
-      }
-    }
-    return res.status(201).json(withdrawObjResponse)
+    
+    return res.status(201).json(responseObj)
   }
 }

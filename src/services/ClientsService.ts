@@ -1,10 +1,11 @@
 import { Decimal } from "@prisma/client/runtime";
+import StyledError from "../helpers/Error";
 import * as models from '../models';
 
 export class ClientsService {
   
   async depositCash ({codCliente, Valor}: {codCliente: string, Valor: Decimal}) {
-    
+
   const {name, balance} = await models.Clients.addMoneyOnClient(codCliente, Valor)   
     
     const depositObjResponse = {
@@ -17,4 +18,23 @@ export class ClientsService {
     return depositObjResponse;
   }
 
+  async withDrawCash({codCliente, Valor}: {codCliente: string, Valor: Decimal}){
+    
+    const {payload} = await models.Clients.getClientByCode(codCliente)
+      
+    if (Number(payload.balance) < Number(Valor) ) throw new StyledError(400, "Insuficient Funds")
+
+    const {name, balance} = await models.Clients.rmvMoneyOnClient(codCliente, Valor)   
+
+    const withdrawObjResponse = {
+      payload: {  
+        message: 'Withdraw made Successfully',
+        name,
+        newBalance: balance
+      }
+    }
+    return withdrawObjResponse;
+  }
+
 } 
+
