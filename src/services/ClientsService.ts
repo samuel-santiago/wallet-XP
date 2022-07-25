@@ -18,6 +18,12 @@ export class ClientsService {
     return depositObjResponse;
   }
 
+  async getClientByCode (codCliente: string){
+    const {payload} = await models.Clients.getClientByCode(codCliente);
+    if (!(payload.balance || payload.name)) throw new StyledError(400, "Client Inexistent");
+    return payload;
+  }
+
   async withDrawCash({codCliente, Valor}: {codCliente: string, Valor: Decimal}){
     
     const {payload} = await models.Clients.getClientByCode(codCliente)

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { prismaClient } from "../database/prismaClient";
 import * as services from '../services';
 
-export class clients {
+export class ClientsController {
 
    async createClient(req: Request, res: Response){
     const {name, email, password, balance } = req.body;
@@ -35,7 +35,9 @@ export class clients {
   }
 
   async getClientByCode(req: Request, res: Response){
-    return res.status(201).json({message: "OK"});
+    const {code} = req.params
+    const responseObj = await services.Clients.getClientByCode(code);
+    return res.status(201).json(responseObj);
   }
 
   async depositCash(req: Request, res: Response){

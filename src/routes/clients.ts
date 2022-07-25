@@ -1,13 +1,12 @@
 import Express from "express";
-import { clients } from "../controllers/ClientsController";
+import * as controllers from "../controllers";
 
 const router = Express();
 
-const clientsController = new clients();
 
 router.route('/')
- .post(clientsController.createClient)
- .delete(clientsController.deleteById);
+ .post(controllers.Clients.createClient)
+ .delete(controllers.Clients.deleteById);
 
 
 
