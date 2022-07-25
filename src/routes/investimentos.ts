@@ -1,9 +1,8 @@
 import Express from "express";
-import { clients } from "../controllers/ClientsController";
+import * as controllers from "../controllers";
 
 const router = Express();
 
-const createNewClient = new clients();
 
 router.route('/investimentos')
 
