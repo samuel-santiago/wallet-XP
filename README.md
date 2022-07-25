@@ -36,6 +36,11 @@ Para ajudar na concepção das tabelas, utilizamos o seguinte Diagrama Entidade 
 | assets             | Relação de Produtos financeiros disponíveis na corretora   |
 | clients_assets       | Relação de Produtos de um cliente        |
 
+Toda a estrutura de pasta bem como a implementação da API foi utilizando o modelo MSC (Models, Controllers e Services)
+
+<p align="center">
+  <img src=src/assets/images/MSC.png alt=mscArchDiagram width=50%/>
+</p>
 
 Para saber mais sobre os princípios [ACID](https://www.ibm.com/docs/en/cics-ts/5.4?topic=processing-acid-properties-transactions)
 
